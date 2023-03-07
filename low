@@ -1,0 +1,42 @@
+import os
+
+# Создание функции для получения информации о файлах в папке
+def inventory_folder(folder_path):
+    # Создание пустого словаря, чтобы сохранить информацию о файлах
+    files_info = {}
+
+    # Получение списка файлов в папке
+    files = os.listdir(folder_path)
+
+    # Цикл для прохода по каждому файлу и получения информации о нем
+    for file_name in files:
+        # Полный путь к файлу
+        file_path = os.path.join(folder_path, file_name)
+
+        # Информация о файле
+        file_info = {
+            "name": file_name,
+            "path": file_path,
+            "size": os.path.getsize(file_path),
+            "last_modified": os.path.getmtime(file_path)
+        }
+
+        # Добавление информации о файле в словарь
+        files_info[file_name] = file_info
+
+    # Возврат словаря с информацией о файлах
+    return files_info
+
+# Путь к папке, которую нужно проверить
+folder_path = "C:/Users/UserName/Desktop"
+
+# Получение информации о файлах в папке
+files = inventory_folder(folder_path)
+
+# Вывод информации о файлах на экран
+for file_name, file_info in files.items():
+    print(file_name)
+    print("Расположение:", file_info["path"])
+    print("Размер:", file_info["size"], "байт")
+    print("Последнее изменение:", file_info["last_modified"])
+    print()
